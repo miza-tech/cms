@@ -1,0 +1,24 @@
+@import "../vars.less";
+:global {
+	.PermissionList {
+		// margin: 16px 0 0 0;
+		.category, th {
+			background-color: #f7f7f7 !important;
+			font-weight: bold;
+			font-size: 14px;
+		}
+		.permissions {
+			line-height: 24px;
+
+			.ant-checkbox-disabled + span {
+				color: #333 !important;
+			}
+			.ant-checkbox-disabled .ant-checkbox-inner {
+				// border-color: @primary-color !important;
+			}
+			.ant-checkbox-wrapper, .ant-checkbox {
+				cursor: default !important;
+			}
+		}
+	}
+}

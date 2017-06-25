@@ -1,0 +1,22 @@
+{
+	"entry": "src/index.js",
+	"theme": "./src/config/theme.js",
+	"autoprefixer": {
+		"browsers": ["> 1%", "last 2 versions", "iOS >= 8", "Android >= 4"]
+	},
+	"env": {
+		"development": {
+			"extraBabelPlugins": [
+				"dva-hmr",
+				"transform-runtime",
+				["import", { "libraryName": "antd", "style": "css" }]
+			]
+		},
+		"production": {
+			"extraBabelPlugins": [
+				"transform-runtime",
+				["import", { "libraryName": "antd", "style": "css" }]
+			]
+		}
+	}
+}
