@@ -21,6 +21,8 @@ import ResetPasswordModal from './ResetPasswordModal';
 import DepartmentList from './DepartmentList';
 import DepartmentModal from './DepartmentModal';
 
+import ResetBackendPasswordModal from './ResetBackendPasswordModal';
+
 export {
 	MenuBox, MenuList, MenuForm,
 	RoleBox, RoleList, RoleForm,
@@ -28,4 +30,5 @@ export {
 	CategoryList, CategoryModal,
 	UserBox, UserList,UserForm, ResetPasswordModal,
 	DepartmentList,DepartmentModal,
+	ResetBackendPasswordModal
 };

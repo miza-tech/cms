@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Table, Icon, Button, Tooltip, Col, Row, Popconfirm } from 'antd';
-import { UserList, UserForm } from './';
+import { RoleList, RoleForm } from './';
 
-class UserBox extends React.Component {
+class RoleBox extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -29,12 +29,12 @@ class UserBox extends React.Component {
 
 	render() {
 		return (
-			<div>{ this.state.editModel ? <UserForm editRecord={this.state.editRecord} closeForm={this.closeForm} /> : <UserList openEditForm={this.openEditForm} /> }</div>
+			<div>{ this.state.editModel ? <RoleForm editRecord={this.state.editRecord} closeForm={this.closeForm} /> : <RoleList openEditForm={this.openEditForm} /> }</div>
 		);
 	}
 }
 
-UserBox.propTypes = {
+RoleBox.propTypes = {
 };
 
-export default UserBox;
+export default RoleBox;

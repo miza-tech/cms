@@ -32,7 +32,7 @@ class System extends React.Component {
 	}
 
 	changeCategory (section) {
-		this.context.router.push('/setting/system/' + section);
+		this.context.router.push('/backend/setting/system/' + section);
 		this.setState({
 			section: section
 		});

@@ -225,17 +225,32 @@
 	.page-header {
 		margin: 0 0 16px 0;
 		line-height: 24px;
-    	height: 24px;
+    	// height: 24px;
 		.align-right {
 			text-align: right;
 		}
 	}
 	.formSection {
 		background-color: #f9f9f9;
-		padding-top: 24px;
+		padding-top: 18px;
+	}
+	.formInputInfo {
+		position: absolute;
+		left: 100%;
+		top: 0;
+		white-space: nowrap;
+		.item {
+			margin-left: 8px;
+		}
 	}
 	.formSectionTitle {
 		margin: 24px 0 16px 0;
+
+		i {
+			font-weight: normal;
+			margin-left: 4px;
+			color: @primary-color;
+		}
 	}
 	.formSectionSubmit {
 		margin: 24px 0 0 0;
@@ -251,6 +266,11 @@
 		    right: -24px;
 		    top: 9px;
 		    font-size: 14px;
+		}
+	}
+	.formBox {
+		.formSectionTitle, .page-title {
+			font-size: 16px;
 		}
 	}
 	.modalFormMsg {

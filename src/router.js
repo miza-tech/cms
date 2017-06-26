@@ -44,7 +44,64 @@ function RouterConfig({ history }) {
 							cb(null, require('./routes/settings/Administrator'))
 						})
 					}
+				},
+
+				{
+					path: '/backend/account/list',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/backendSettings/AccountList'))
+						})
+					}
+				},
+				{
+					path: '/backend/account/new',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/backendSettings/AccountEdit'))
+						})
+					}
+				},
+				{
+					path: '/backend/account/:id/edit',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/backendSettings/AccountEdit'))
+						})
+					}
+				},
+				{
+					path: '/backend/users',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/backendSettings/UserList'))
+						})
+					}
+				},
+				{
+					path: '/backend/users/:id/edit',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/backendSettings/UserEdit'))
+						})
+					}
+				},
+				{
+					path: '/backend/users/new',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/backendSettings/UserEdit'))
+						})
+					}
 				}
+				, {
+					path: '/backend/setting/administrator(/:section)',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/backendSettings/Administrator'))
+						})
+					}
+				},
 			]
 		},
 		{

@@ -26,6 +26,8 @@ app.use(createLoading());
 app.model(require('./models/app'));
 app.model(require('./models/setting'));
 app.model(require('./models/administrator'));
+app.model(require('./models/backend'));
+app.model(require('./models/backendUser'));
 
 // 4. Router
 app.router(require('./router'));

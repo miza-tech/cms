@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'dva';
-import { Button, Form, Input, Tooltip, Icon, Alert, Row, Col, TreeSelect, Checkbox } from 'antd';
+import { Button, Form, Input, Tooltip, Icon, Alert, Row, Col, TreeSelect } from 'antd';
 import FormError from '../../../components/FormError';
 import { formatPermissions } from '../../../utils/utils';
 import { PermissionSection } from './';
@@ -132,12 +132,6 @@ class MenuForm extends React.Component {
 									initialValue: editRecord.description,
 									rules: [],
 								})(<Input placeholder="" type="textarea" autosize={{ minRows: 2, maxRows: 3 }} />)}
-							</FormItem>
-							<FormItem label="隐藏菜单:" {...formItemLayout}>
-								{getFieldDecorator('hidden', {
-									valuePropName: 'checked',
-									initialValue: editRecord.hidden,
-								})(<Checkbox>菜单是否隐藏</Checkbox>)}
 							</FormItem>
 						</Col>
 					</Row>

@@ -46,7 +46,6 @@ class UserList extends React.Component {
 				queryParams: queryParams
 			}
 		});
-
 	}
 
 	render() {
@@ -108,7 +107,7 @@ class UserList extends React.Component {
 		let pagination;
 		if (paginationConf) {
 			pagination = {
-				...this.props.administrator.users_pagination
+				...paginationConf
 			};
 		} else {
 			pagination = false;

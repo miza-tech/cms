@@ -21,6 +21,9 @@ export default {
 	subscriptions: {
 		setup({ dispatch, history }) {
 			dispatch({ type: 'queryAppInfo' });
+			// history.listen(({ pathname }) => {
+			// 	console.error(pathname);
+			// })
 		},
 	},
 

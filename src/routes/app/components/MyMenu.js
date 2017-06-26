@@ -47,7 +47,6 @@ class MyMenu extends React.Component {
 	}
 
 	onSelect () {
-		console.error(arguments);
 	}
 
 	render() {

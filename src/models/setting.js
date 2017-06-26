@@ -1,5 +1,5 @@
 import { GET, POST, PATCH, DELETE } from '../services/http';
-import {formListData} from '../utils/utils';
+import {formatListData} from '../utils/utils';
 import { message } from 'antd';
 
 let mDispatch;
@@ -39,7 +39,7 @@ export default {
 			yield put({
 				type: 'saveRoles',
 				payload: {
-					roles: formListData(response.data)
+					roles: formatListData(response.data)
 				}
 			});
 		},
@@ -79,7 +79,7 @@ export default {
 			yield put({
 				type: 'savePrmissions',
 				payload: {
-					permissions: formListData(response.data)
+					permissions: formatListData(response.data)
 				}
 			});
 		},
@@ -118,7 +118,7 @@ export default {
 			yield put({
 				type: 'saveMenus',
 				payload: {
-					menus:  formListData(response.data)
+					menus:  formatListData(response.data)
 				}
 			});
 		},
@@ -160,7 +160,7 @@ export default {
 			yield put({
 				type: 'saveCategories',
 				payload: {
-					categories:  formListData(response.data)
+					categories:  formatListData(response.data)
 				}
 			});
 		},

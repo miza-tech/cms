@@ -1,18 +1,30 @@
 import {constant} from '../config';
 
-export function formListData (data) {
+export function formatListData (data) {
 	data = data || [];
 	return data.map(item => {
 		item.key = item.value = item.id + "";
 		item.label = item.display_name;
 		// item.parent_id = (item.parent_id || "") + "";
 		if (item.children && item.children.length > 0) {
-			formListData(item.children);
+			formatListData(item.children);
 		} else {
 			delete item.children;
 		}
 		return item;
 	});
+};
+
+export function formatpPagination (data) {
+	if (data.per_page > data.total) return false;
+	return {
+		current: data.current_page,
+		total: data.total,
+		pageSize: data.per_page,
+		showTotal: (total, range) => {
+			return `显示${range[0]}-${range[1]}，总共${total}条数据`;
+		}
+	};
 };
 
 export function formatPermissions (data) {
@@ -59,7 +71,9 @@ export function getMyMenuTree(menuTree, myMenus) {
 				) {
 					item.visible = false;
 				} else {
-					item.visible = true;
+					if (!item.hidden) {
+						item.visible = true;
+					}
 				}
 				// item.visible = true;
 				result = true;
@@ -70,4 +84,51 @@ export function getMyMenuTree(menuTree, myMenus) {
 	traverse(menuTree);
 
 	return menuTree;
+};
+
+export function getPermissionsByRole (roles, roleIds) {
+	let permissions = [];
+	roles.map((role) => {
+		if(roleIds.indexOf(role.key) > -1) {
+			permissions = permissions.concat(role.permissions || []);
+		}
+	});
+
+	return permissions;
+};
+
+export function genErrorFields (form, errors) {
+	let formErrors = {};
+	const formData = form.getFieldsValue();
+
+	for(let errorField in errors) {
+		let errorMsg = errors[errorField];
+		if (errorMsg instanceof Array) {
+			errorMsg = errorMsg.length > 0 ? errorMsg[0] : '请检查';
+		}
+
+		formErrors[errorField] = {
+			value: formData[errorField],
+			errors: [new Error(errorMsg)]
+		};
+	}
+
+	form.setFields(formErrors);
+};
+
+export function formatKeysArray (arrValues) {
+	return arrValues.map((value) => {
+		return value + "";
+	});
+};
+
+export function genSearchParams (searchForm) {
+	let params = [];
+	for(let field in searchForm) {
+		const value = searchForm[field];
+		if (value) {
+			params.push(`${field}=${value}`);
+		}
+	}
+	return params.join('&');
 };
