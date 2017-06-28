@@ -4,8 +4,13 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { menu } from '../../../config';
 
-const MyBread = ({routes, setting}) => {
-	const currRoute = routes[routes.length - 1].path || '/dashboard';
+const MyBread = ({routes, cmsMenu}) => {
+	const currRoute = routes.map((route) => {
+		if (route.path) {
+			return route.path.replace(/(^\/*)|(\/*$)/g, "");
+		}
+	}).join('/');
+
 	let breakMenu = [];
 
 	const makeBread = (path, menu) => {
@@ -26,14 +31,16 @@ const MyBread = ({routes, setting}) => {
 		return result;
 	};
 
-	makeBread(currRoute, setting.menus || []);
+	makeBread(currRoute, cmsMenu.menus || []);
 	const currMenu = breakMenu[breakMenu.length - 1] || {};
 
 	const breads = breakMenu.map((item, key) => {
 		return (
-			<Breadcrumb.Item key={key} href={item.url}>
-				{item.icon && <Icon type={item.icon} />}
-				<span>{item.display_name}</span>
+			<Breadcrumb.Item key={key}>
+				<Link to={item.url}>
+					{item.icon && <Icon type={item.icon} />}
+					<span>{item.display_name}</span>
+				</Link>
 			</Breadcrumb.Item>
 		)
 	})
@@ -56,11 +63,12 @@ const MyBread = ({routes, setting}) => {
 
 MyBread.propTypes = {
 	routes: PropTypes.array,
-	setting: PropTypes.object
+	location: PropTypes.object,
+	cmsMenu: PropTypes.object
 }
 
-function mapStateToProps({ setting }) {
-	return { setting };
+function mapStateToProps({ cmsMenu }) {
+	return { cmsMenu };
 }
 
 export default connect(mapStateToProps)(MyBread);

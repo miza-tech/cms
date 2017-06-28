@@ -60,7 +60,7 @@ export function getGender(gender) {
 };
 
 export function getMyMenuTree(menuTree, myMenus) {
-
+	myMenus = myMenus || [];
 	const traverse = (menus) => {
 		let result = false;
 		for (var i = 0, l = menus.length; i < l; i++) {

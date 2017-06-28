@@ -48,7 +48,7 @@ function App({ children, location, dispatch, app, routes }) {
 			<Layout>
 				<MyHeader {...headerProps} />
 				<Content>
-					<MyBread location={location} routes={routes} />
+					<MyBread location={location} routes={routes} location={location} />
 					<div className="container">
 						{children}
 					</div>
@@ -75,11 +75,10 @@ App.propTypes = {
 	location: PropTypes.object,
 	dispatch: PropTypes.func,
 	app: PropTypes.object,
-	setting: PropTypes.object,
 };
 
-function mapStateToProps({ app, setting }) {
-	return { app, setting };
+function mapStateToProps({ app }) {
+	return { app };
 }
 
 export default connect(mapStateToProps)(App);

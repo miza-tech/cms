@@ -184,8 +184,11 @@
 			}
 		}
 
-		.page-bread, .container {
+		.page-bread {
 			margin:12px 24px;
+		}
+		.container {
+			margin:12px 24px 24px 24px;
 		}
 		.page-bread {
 			line-height: 24px;
@@ -220,6 +223,38 @@
 		box-shadow: @shadow-1;
 		min-height: e("calc(100vh - 180px)");
 		border: 1px solid #eee;
+	}
+	.body-box {
+		.ant-card-body {
+			padding: 16px 24px 32px 24px;
+		}
+
+	}
+	.tabMenu {
+		font-size: 14px;
+		margin: 0 0 18px 0;
+		.ant-menu-item {
+			margin-right: 24px;
+			padding: 0;
+			transition: none;
+			&:last-child {
+				margin-right: 0;
+			}
+			&.ant-menu-item-active {
+				border: none;
+			}
+
+			a {
+				padding: 0 20px;
+				border-bottom:2px solid transparent;
+				margin-bottom: -2px;
+
+				&.active {
+					color: #108ee9;
+					border-bottom-color:#108ee9;
+				}
+			}
+		}
 	}
 
 	.page-header {
@@ -275,5 +310,8 @@
 	}
 	.modalFormMsg {
 		margin-bottom: 24px;
+	}
+	.align-center {
+		text-align: center !important;
 	}
 }

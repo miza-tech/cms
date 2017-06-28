@@ -42,7 +42,7 @@ class MyMenu extends React.Component {
 	}
 	componentDidMount () {
 		this.props.dispatch({
-			type: 'setting/queryMenus'
+			type: 'cmsMenu/query'
 		});
 	}
 
@@ -50,7 +50,7 @@ class MyMenu extends React.Component {
 	}
 
 	render() {
-		const menus = getMyMenuTree(this.props.setting.menus || [], this.props.app.user.menus);
+		const menus = getMyMenuTree(this.props.cmsMenu.menus || [], this.props.app.user.menus);
 		return (
 			<Menu
 				theme='dark'
@@ -67,8 +67,8 @@ MyMenu.propTypes = {
 	dispatch: PropTypes.func.isRequired,
 };
 
-function mapStateToProps({ setting, app, loading }) {
-	return { setting, app, loading: loading.models.setting };
+function mapStateToProps({ cmsMenu, app, loading }) {
+	return { cmsMenu, app, loading: loading.models.cmsMenu };
 }
 
 export default connect(mapStateToProps)(MyMenu);

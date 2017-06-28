@@ -1,8 +1,6 @@
 import React from 'react';
 import { Router, Route } from 'dva/router';
 import App from './routes/app/Index';
-import Index from './routes/dashboard/Index';
-import { menu } from './config';
 
 function RouterConfig({ history }) {
 
@@ -12,95 +10,240 @@ function RouterConfig({ history }) {
 			component: App,
 			getIndexRoute (nextState, cb) {
 				require.ensure([], require => {
-					cb(null, { component: require('./routes/dashboard/Index') })
+					cb(null, { component: require('./routes/cms/dashboard/Index') })
 				}, 'dashboard')
 			},
 			childRoutes: [
 				{
-					path: '/dashboard',
+					path: 'dashboard',
 					getComponent (nextState, cb) {
 						require.ensure([], require => {
-							cb(null, require('./routes/dashboard/Index'))
+							cb(null, require('./routes/cms/dashboard/Index'))
 						})
-					}
-				}, {
-					path: '/profile',
-					getComponent (nextState, cb) {
-						require.ensure([], require => {
-							cb(null, require('./routes/profile/Info'))
-						})
-					}
-				}, {
-					path: '/setting/system(/:section)',
-					getComponent (nextState, cb) {
-						require.ensure([], require => {
-							cb(null, require('./routes/settings/System'))
-						})
-					}
-				}, {
-					path: '/setting/administrator(/:section)',
-					getComponent (nextState, cb) {
-						require.ensure([], require => {
-							cb(null, require('./routes/settings/Administrator'))
-						})
-					}
+					},
 				},
-
 				{
-					path: '/backend/account/list',
+					path: 'backend/accounts',
 					getComponent (nextState, cb) {
 						require.ensure([], require => {
-							cb(null, require('./routes/backendSettings/AccountList'))
+							cb(null, require('./routes/backend/account/List'))
 						})
 					}
 				},
 				{
-					path: '/backend/account/new',
+					path: 'backend/account/new',
 					getComponent (nextState, cb) {
 						require.ensure([], require => {
-							cb(null, require('./routes/backendSettings/AccountEdit'))
+							cb(null, require('./routes/backend/account/Edit'))
 						})
 					}
 				},
 				{
-					path: '/backend/account/:id/edit',
+					path: 'backend/account/:accountId',
 					getComponent (nextState, cb) {
 						require.ensure([], require => {
-							cb(null, require('./routes/backendSettings/AccountEdit'))
+							cb(null, require('./routes/backend/account/Info'))
+						})
+					},
+					indexRoute: { onEnter: (nextState, replace) => {
+						console.error(nextState);
+						return replace(`/backend/account/${nextState.params.accountId}/edit`);
+					} },
+					childRoutes: [
+						{
+							path: 'edit',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/backend/account/Edit'))
+								})
+							}
+						},
+						{
+							path: 'departments',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/backend/department/List'))
+								})
+							}
+						},
+						// {
+						// 	path: 'departmen/new',
+						// 	getComponent (nextState, cb) {
+						// 		require.ensure([], require => {
+						// 			cb(null, require('./routes/backend/department/Edit'))
+						// 		})
+						// 	}
+						// },
+						// {
+						// 	path: 'departmen/:id/edit',
+						// 	getComponent (nextState, cb) {
+						// 		require.ensure([], require => {
+						// 			cb(null, require('./routes/backend/department/Edit'))
+						// 		})
+						// 	}
+						// },
+						{
+							path: 'roles',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/backend/role/List'))
+								})
+							}
+						},
+						// {
+						// 	path: 'role/new',
+						// 	getComponent (nextState, cb) {
+						// 		require.ensure([], require => {
+						// 			cb(null, require('./routes/backend/role/Edit'))
+						// 		})
+						// 	}
+						// },
+						// {
+						// 	path: 'role/:id/edit',
+						// 	getComponent (nextState, cb) {
+						// 		require.ensure([], require => {
+						// 			cb(null, require('./routes/backend/role/Edit'))
+						// 		})
+						// 	}
+						// },
+					]
+				},
+				{
+					path: 'backend/users',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/backend/user/List'))
 						})
 					}
 				},
 				{
-					path: '/backend/users',
+					path: 'backend/user/:id/edit',
 					getComponent (nextState, cb) {
 						require.ensure([], require => {
-							cb(null, require('./routes/backendSettings/UserList'))
+							cb(null, require('./routes/backend/user/Edit'))
 						})
 					}
 				},
 				{
-					path: '/backend/users/:id/edit',
+					path: 'backend/user/new',
 					getComponent (nextState, cb) {
 						require.ensure([], require => {
-							cb(null, require('./routes/backendSettings/UserEdit'))
+							cb(null, require('./routes/backend/user/Edit'))
 						})
 					}
 				},
 				{
-					path: '/backend/users/new',
+					path: 'backend/system',
 					getComponent (nextState, cb) {
 						require.ensure([], require => {
-							cb(null, require('./routes/backendSettings/UserEdit'))
+							cb(null, require('./routes/backend/settings/System'))
 						})
-					}
-				}
-				, {
-					path: '/backend/setting/administrator(/:section)',
+					},
+					indexRoute: { onEnter: (nextState, replace) => replace('/backend/system/menus') },
+					childRoutes: [
+						{
+							path: 'menus',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/backend/menu/List'))
+								});
+							}
+						},
+						{
+							path: 'permissions',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/backend/permission/List'))
+								});
+							}
+						},
+						{
+							path: 'permission/categorys',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/backend/permission/CategoryList'))
+								});
+							}
+						}
+					]
+				},
+				{
+					path: 'profile',
 					getComponent (nextState, cb) {
 						require.ensure([], require => {
-							cb(null, require('./routes/backendSettings/Administrator'))
+							cb(null, require('./routes/cms/profile/Info'))
 						})
 					}
+				},
+				{
+					path: 'cms/users',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/cms/user/List'))
+						})
+					}
+				},
+				{
+					path: 'cms/system',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/cms/settings/System'))
+						})
+					},
+					indexRoute: { onEnter: (nextState, replace) => replace('/cms/system/menus') },
+					childRoutes: [
+						{
+							path: 'menus',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/cms/menu/List'))
+								});
+							}
+						},
+						{
+							path: 'permissions',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/cms/permission/List'))
+								});
+							}
+						},
+						{
+							path: 'permission/categorys',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/cms/permission/CategoryList'))
+								});
+							}
+						}
+					]
+				},
+				{
+					path: 'cms/administrator',
+					getComponent (nextState, cb) {
+						require.ensure([], require => {
+							cb(null, require('./routes/cms/settings/Administrator'))
+						})
+					},
+					indexRoute: { onEnter: (nextState, replace) => replace('/cms/administrator/departments') },
+					childRoutes: [
+						{
+							path: 'departments',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/cms/department/List'))
+								});
+							}
+						},
+						{
+							path: 'roles',
+							getComponent (nextState, cb) {
+								require.ensure([], require => {
+									cb(null, require('./routes/cms/role/List'))
+								});
+							}
+						}
+					]
 				},
 			]
 		},

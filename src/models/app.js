@@ -12,10 +12,6 @@ export default {
 		siderFold: localStorage.getItem('sidebar_fold') === 'true',
 		// auth user
 		user: null,
-		// roles
-		roles: null,
-		// permissions
-		permissions: null,
 	},
 
 	subscriptions: {
@@ -65,31 +61,7 @@ export default {
 					user: response.data.user
 				}
 			});
-		},
-
-		*queryRoles ({ payload }, {call, put}) {
-			const response = yield call(GET, 'cms/roles');
-			if (response.code !== 'SUCCESS') return;
-
-			yield put({
-				type: 'saveRoles',
-				payload: {
-					roles: response.data
-				}
-			});
-		},
-
-		*queryPermissions ({ payload }, {call, put}) {
-			const response = yield call(GET, 'cms/permissions');
-			if (response.code !== 'SUCCESS') return;
-
-			yield put({
-				type: 'savepPrmissions',
-				payload: {
-					permissions: response.data
-				}
-			});
-		},
+		}
 	},
 
 	reducers: {

@@ -9,29 +9,49 @@ class PermissionList extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			checkedPermissions: null
+			checkedPermissions: this.props.checkedPermissions || []
 		};
+		this.onPermissionChanged = this.onPermissionChanged.bind(this);
 	}
 
 	componentDidMount () {
 		this.props.dispatch({
-			type: 'setting/queryPermissions'
+			type: 'cmsPermission/query'
 		});
 	}
 	componentWillReceiveProps (newProps) {
+	}
+
+	onPermissionChanged (checked, permission) {
+		let checkedPermissions = this.state.checkedPermissions;
+		const index = checkedPermissions.indexOf(permission.id);
+
+		if (checked && index == -1) {
+			checkedPermissions.push(permission.id);
+		}
+		if (!checked && index > -1) {
+			checkedPermissions.splice(index, 1);
+		}
+
 		this.setState({
-			checkedPermissions: newProps.checkedPermissions
+			checkedPermissions: checkedPermissions
 		});
+
+		if (this.props.onChange) {
+			this.props.onChange(checkedPermissions);
+		}
 	}
 
 	render() {
 		const checkedPermissions = this.state.checkedPermissions || [];
 		const showAll = this.props.showAll;
+		const editAble = !!this.props.editAble;
+
 		let myPermissions;
-		if (showAll) {
-			myPermissions = this.props.setting.permissions;
+		if (showAll || editAble) {
+			myPermissions = this.props.cmsPermission.permissions;
 		} else {
-			myPermissions = filterSelectedArray(this.props.setting.permissions, checkedPermissions);
+			myPermissions = filterSelectedArray(this.props.cmsPermission.permissions, checkedPermissions);
 		}
 		const permissions = formatPermissions(myPermissions);
 
@@ -49,19 +69,15 @@ class PermissionList extends React.Component {
 					return (<div>
 						{
 							record.permissions.map((permission) => {
-								if (showAll) {
-									return (
-										<Checkbox key={permission.key} checked={checkedPermissions.indexOf(permission.id) > 0 ? true : false} disabled={true}>
-											{permission.display_name}
-										</Checkbox>
-									);
-								} else {
-									return (
-										<Checkbox key={permission.key} checked={true} disabled={true}>
-											{permission.display_name}
-										</Checkbox>
-									);
-								}
+								return (
+									<Checkbox
+										key={permission.key}
+										onChange={e => this.onPermissionChanged(e.target.checked, permission)}
+										checked={checkedPermissions.indexOf(permission.id) > -1}
+										disabled={!editAble}>
+										{permission.display_name}
+									</Checkbox>
+								);
 							})
 						}
 					</div>);
@@ -75,14 +91,16 @@ class PermissionList extends React.Component {
 	};
 }
 
-function mapStateToProps({ setting, loading }) {
-	return { setting, loading: loading.models.setting };
+function mapStateToProps({ cmsPermission, loading }) {
+	return { cmsPermission, loading: loading.models.cmsPermission };
 }
 
 PermissionList.propTypes = {
 	checkedPermissions: PropTypes.array,
 	showAll: PropTypes.bool,
+	editAble: PropTypes.bool,
 	dispatch: PropTypes.func.isRequired,
+	onChange: PropTypes.func,
 };
 
 export default connect(mapStateToProps)(PermissionList);

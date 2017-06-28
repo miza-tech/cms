@@ -24,10 +24,19 @@ app.use(createLoading());
 
 // 3. Model
 app.model(require('./models/app'));
-app.model(require('./models/setting'));
-app.model(require('./models/administrator'));
-app.model(require('./models/backend'));
-app.model(require('./models/backendUser'));
+
+app.model(require('./models/cms/department'));
+app.model(require('./models/cms/menu'));
+app.model(require('./models/cms/permission'));
+app.model(require('./models/cms/role'));
+app.model(require('./models/cms/user'));
+
+app.model(require('./models/backend/account'));
+app.model(require('./models/backend/department'));
+app.model(require('./models/backend/menu'));
+app.model(require('./models/backend/permission'));
+app.model(require('./models/backend/role'));
+app.model(require('./models/backend/user'));
 
 // 4. Router
 app.router(require('./router'));

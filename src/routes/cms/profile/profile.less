@@ -1,0 +1,88 @@
+@import "../../../components/vars.less";
+
+.card {
+	margin-bottom: 24px;
+
+	.title {
+		font-size: 24px;
+	}
+}
+.infoBox {
+
+	display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    flex: auto;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+
+	.infoSider {
+		flex: 0 0 84px;
+    	width: 84px;
+	}
+
+	.infoContent {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		-webkit-flex-direction: column;
+		flex-direction: column;
+		-webkit-box-flex: 1;
+		-ms-flex: auto;
+		-webkit-flex: auto;
+		flex: auto;
+	}
+
+	.avatar {
+		height: 60px;
+		width: 60px;
+		border-radius: 60px;
+		font-size: 40px;
+		line-height: 60px;
+		background-color: @primary-color;
+	}
+	.infoMeta {
+		margin-top: 8px;
+		line-height: 24px;
+	}
+}
+.userOperation {
+	margin-top: 12px;
+	button,a {
+		margin-right: 12px;
+	}
+	a i {
+		margin-right: 2px;
+	}
+}
+.userRoles {
+	margin: 0 0 24px;
+	background-color: #f9f9f9;
+	padding: 12px 16px;
+
+	label, span{
+		cursor:default;
+		color: #333 !important;
+		line-height: 24px;
+	}
+}
+.sectionTitle {
+	font-size: 14px;
+	margin: 0 0 12px 0;
+	i {
+		font-weight: normal;
+		font-size: 12px;
+		margin-left: 4px;
+	}
+}
